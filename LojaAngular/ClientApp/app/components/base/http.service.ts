@@ -6,8 +6,21 @@ import { InterceptorService } from 'ng2-interceptors';
 @Injectable()
 export abstract class HttpService {
 
+    private headers: Headers;
+    private options: RequestOptions;
+
     constructor(
-        public http: InterceptorService) { }
+        public http: InterceptorService) {
+        if (typeof window !== 'undefined') {
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser != null) {
+                var token = currentUser.token;
+            }
+
+            this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'bearer ' + token });
+            this.options = new RequestOptions({ headers: this.headers });
+        }
+    }
 
     private getRequestOptions(contentType?: string, responseType?: string) {
         let headerOptions: any = [];
@@ -20,14 +33,19 @@ export abstract class HttpService {
             headerOptions.push({ 'responseType': responseType });
         }
 
+        debugger;
+
+        headerOptions.push({ 'Authorization': 'bearer: ' + localStorage.getItem('token') });
+
         let header = new Headers(headerOptions);
         let requestOptions = new RequestOptions({ headers: header });
         return requestOptions;
     }
 
     protected _getAll(method: string) {
+        debugger;
         return this.http.get(
-            method).map((res) => res.json());
+            method, this.options).map((res) => res.json());
     }
 
     protected _getById(id: number, method: string, contentType: string) {

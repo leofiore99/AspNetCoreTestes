@@ -21,6 +21,11 @@ import { CarreiraComponent } from "./components/carreira/carreira.component";
 import { ReuniaoComponent } from "./components/reuniao/reuniao.component";
 import { CarreiraService } from "./components/carreira/carreira.service";
 import { ReuniaoService } from "./components/reuniao/reuniao.service";
+import { LoginComponent } from "./components/login/login.component";
+import { AuthGuard } from "./components/authentication/auth.guard";
+import { AuthenticationService } from "./components/authentication/authentication.service";
+import { ClienteComponent } from "./components/cliente/cliente.component";
+import { ClienteService } from "./components/cliente/cliente.service";
 
 @NgModule({
     declarations: [
@@ -34,7 +39,9 @@ import { ReuniaoService } from "./components/reuniao/reuniao.service";
         FooterComponent,
         ObjetivoComponent,
         CarreiraComponent,
-        ReuniaoComponent
+        ReuniaoComponent,
+        LoginComponent,
+        ClienteComponent
     ],
     imports: [
         CommonModule,
@@ -43,12 +50,14 @@ import { ReuniaoService } from "./components/reuniao/reuniao.service";
         FormsModule,
         NgbModule.forRoot(),
         RouterModule.forRoot([
-            { path: '', component: EventoComponent },
+            { path: '', component: LoginComponent },
+            { path: 'login', component: LoginComponent },
             { path: 'objetivos', component: ObjetivoComponent },
             { path: 'carreira', component: CarreiraComponent },
-            { path: 'reunioes', component: ReuniaoComponent },
-            { path: 'desempenho', component: EventoComponent },
-            { path: 'feedbacks', component: EventoComponent },
+            { path: 'reunioes', component: ReuniaoComponent, canActivate: [AuthGuard] },
+            { path: 'desempenho', component: EventoComponent, canActivate: [AuthGuard] },
+            { path: 'feedbacks', component: EventoComponent, canActivate: [AuthGuard] },
+            { path: 'clientes', component: ClienteComponent, canActivate: [AuthGuard] }
         ])
     ],
     providers: [
@@ -56,7 +65,10 @@ import { ReuniaoService } from "./components/reuniao/reuniao.service";
         EventoService,
         ObjetivoService,
         ReuniaoService,
-        CarreiraService
+        CarreiraService,
+        AuthenticationService,
+        AuthGuard,
+        ClienteService
     ],
     bootstrap: [AppComponent]
 })

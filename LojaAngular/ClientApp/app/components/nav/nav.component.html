@@ -7,6 +7,7 @@
       <button (click)="toggleCollapse()" id="teste" class="btn btn-default align-left" type="button"><i style="color:white" class="fa fa-bars"></i></button>      &nbsp;
       <a class="white-color" href="#"><i class="fa fa-medium"></i></a> &nbsp;
       <a class="navbar-brand" style="color:white" href="#">meritus</a>
+      <a [routerLink]="['/login']">Logout</a>
 
       <div class="align-right">
         <input class="hide-mobile nav-search" type="text" placeholder="Procurar pessoas, objetivos, etc..." />
@@ -29,6 +30,7 @@
       <li><a routerLink="/reunioes">Reuniões 1:1</a></li>
       <li><a routerLink="/feedbacks">Feedbacks</a></li>
       <li><a routerLink="/desempenho">Avaliação de Desempenho</a></li>
+      <li><a routerLink="/clientes">Clientes</a></li>
     </ul>
   </div>
 

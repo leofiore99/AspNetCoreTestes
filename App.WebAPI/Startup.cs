@@ -72,6 +72,17 @@ namespace App.WebAPI
         {
             services.AddMvc();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin()
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod();
+                      });
+            });
+
             #region Autenticação e Autorização
 
             services.AddAuthentication((options) =>
@@ -174,6 +185,7 @@ namespace App.WebAPI
             app.Use((c, next) => container.GetInstance<ApiRequestMiddleware>().Invoke(c, next));
             app.Use((c, next) => container.GetInstance<ErrorHandlerMiddleware>().Invoke(c, next));
 
+            app.UseCors("AllowAllHeaders");
 
             #region Swagger Middleware
 
