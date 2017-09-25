@@ -10,7 +10,7 @@ import { Objetivo } from "./objetivo";
 })
 export class ObjetivoComponent implements OnInit {
 
-    modalId = 'hoplaModal';
+    modalId = 'objetivoModal';
 
     ngOnInit() {
         this.data = this.getObjetivos();
@@ -33,7 +33,6 @@ export class ObjetivoComponent implements OnInit {
     }
 
     private addObjetivo() {
-        debugger;
         return this.objetivoService.post(this.objetivo);
     }
 

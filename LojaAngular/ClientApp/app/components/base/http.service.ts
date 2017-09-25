@@ -33,8 +33,6 @@ export abstract class HttpService {
             headerOptions.push({ 'responseType': responseType });
         }
 
-        debugger;
-
         headerOptions.push({ 'Authorization': 'bearer: ' + localStorage.getItem('token') });
 
         let header = new Headers(headerOptions);
@@ -43,7 +41,6 @@ export abstract class HttpService {
     }
 
     protected _getAll(method: string) {
-        debugger;
         return this.http.get(
             method, this.options).map((res) => res.json());
     }
